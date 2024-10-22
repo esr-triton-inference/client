@@ -77,7 +77,7 @@ set(wheel_stamp_file "stamp.whl")
 
 add_custom_command(
   OUTPUT "${wheel_stamp_file}"
-  COMMAND python3
+  COMMAND python
   ARGS
     "${CMAKE_CURRENT_SOURCE_DIR}/build_wheel.py"
     --dest-dir "${CMAKE_CURRENT_BINARY_DIR}/generic"
@@ -106,7 +106,7 @@ if (NOT WIN32)
   set(linux_wheel_stamp_file "linux_stamp.whl")
   add_custom_command(
     OUTPUT "${linux_wheel_stamp_file}"
-    COMMAND python3
+    COMMAND python
     ARGS
       "${CMAKE_CURRENT_SOURCE_DIR}/build_wheel.py"
       --dest-dir "${CMAKE_CURRENT_BINARY_DIR}/linux"
