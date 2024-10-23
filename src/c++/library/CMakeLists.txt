@@ -53,7 +53,7 @@ if(TRITON_ENABLE_CC_HTTP OR TRITON_ENABLE_EXAMPLES)
   )
   target_include_directories(
     json-utils-library
-    PUBLIC ${RapidJSON_INCLUDE_DIRS}
+    PUBLIC ${RapidJSON_INCLUDE_DIRS}/..
   )
   target_link_libraries(
     json-utils-library
@@ -392,6 +392,13 @@ if(TRITON_ENABLE_CC_HTTP)
       triton-common-json        # from repo-common
   )
 
+  if(${TRITON_ENABLE_ZLIB})
+    target_link_libraries(
+      http-client-library
+      PRIVATE ZLIB::ZLIB
+    )
+  endif() # TRITON_ENABLE_ZLIB
+
   # libhttpclient_static.a
   add_library(
       httpclient_static STATIC
@@ -439,6 +446,14 @@ if(TRITON_ENABLE_CC_HTTP)
       PUBLIC CURL::libcurl
       PUBLIC Threads::Threads
   )
+
+  if(${TRITON_ENABLE_ZLIB})
+    target_link_libraries(
+      httpclient
+      PRIVATE ZLIB::ZLIB
+    )
+  endif() # TRITON_ENABLE_ZLIB
+
 
   foreach(_client_target http-client-library httpclient_static httpclient)
     target_compile_features(${_client_target} PRIVATE cxx_std_${TRITON_MIN_CXX_STANDARD})
